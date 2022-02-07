@@ -1,11 +1,12 @@
 import React, {useEffect} from 'react';
 
-import { Platform } from 'react-native';
+import { Platform, Text, View } from 'react-native';
 
 import  MapView, {Marker} from 'react-native-maps';
 
 import MapViewDirections from 'react-native-maps-directions';
 import { useRef, useCallback } from 'react';
+import { GOOGLE_MAPS_APIKEY } from "@env";
 
 
 const RouteMap = ({origin, destination}) => {
@@ -26,7 +27,7 @@ const RouteMap = ({origin, destination}) => {
         longitude: destination.details.geometry.location.lng,
     };
 
-    const GOOGLE_MAPS_APIKEY = 'AIzaSyCnjJ4prvMRcfO4aDsgQIP490rDJdHnva0'; 
+    
 
 
     const mapRef = useRef(null);
@@ -79,11 +80,13 @@ const RouteMap = ({origin, destination}) => {
             coordinate={destinationLoc}
             title={"Destination"}
             identifier='destination'
+
+        
         
             />
 
         </MapView>
-     
+       
     );
 };
 

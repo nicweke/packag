@@ -5,6 +5,7 @@ import {useNavigation} from '@react-navigation/native';
 import {LearnMoreLinks} from 'react-native/Libraries/NewAppScreen';
 import PlaceRow from './PlaceRow.js';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import { GOOGLE_MAPS_APIKEY } from '@env';
 
 
 import styles from './styles.js';
@@ -71,7 +72,7 @@ const DestinationSearch = props => {
           }}
           fetchDetails
           query={{
-            key: 'AIzaSyCnjJ4prvMRcfO4aDsgQIP490rDJdHnva0',
+            key: GOOGLE_MAPS_APIKEY,
             language: 'en',
           }}
           renderRow={data => <PlaceRow data={data} />}
@@ -114,7 +115,7 @@ const DestinationSearch = props => {
           }}
           fetchDetails
           query={{
-            key: 'AIzaSyCnjJ4prvMRcfO4aDsgQIP490rDJdHnva0',
+            key: GOOGLE_MAPS_APIKEY,
             language: 'en',
           }}
           renderRow={data => <PlaceRow data={data} />}
