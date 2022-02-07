@@ -22,13 +22,15 @@ const styles = StyleSheet.create({
     },
     type: {
 
-        fontWeight: "bold",
+        //fontWeight: "bold",
         fontSize: 17,
         marginBottom: 5,
         color: '#1f1f1f',
+        fontFamily:'Raleway-Bold'
     },
     time : {
         color: '#001d3d',
+        fontFamily:'Raleway-Medium'
 
     },
     rightContainer : {
@@ -39,9 +41,10 @@ const styles = StyleSheet.create({
     },
     price: {
         color: '#1f1f1f',
-        fontWeight: "bold",
+        //fontWeight: "bold",
         fontSize: 18,
         marginLeft: 5,
+        fontFamily:'Raleway-SemiBold'
 
     }
 

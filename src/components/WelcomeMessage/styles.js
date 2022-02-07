@@ -13,21 +13,24 @@ const styles = StyleSheet.create({
     title: {
         color: 'white',
         fontSize: 20,
-        fontWeight: 'bold',
+        //fontWeight: 'bold',
         marginBottom: 10,
+        fontFamily: 'Raleway-Bold',
 
         
     },
     text: {
         color: '#e9ecef',
         fontSize: 15,
-        marginBottom: 10
+        marginBottom: 10,
+        fontFamily: 'Raleway-Regular',
 
     },
     learnMore: {
         color: 'white',
         fontSize: 15,
-        fontWeight: 'bold',
+        //fontWeight: 'bold',
+        fontFamily: 'Raleway-Bold',
         
     }
 

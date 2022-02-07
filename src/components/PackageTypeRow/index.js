@@ -1,13 +1,17 @@
 import React from 'react';
-import { View, Image, Text} from 'react-native';
+import { View, Image, Text, Pressable} from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import styles from './styles.js';
 
 const PackageTypeRow = (props) => {
 
-    const {type} = props;
+    const {type, onPress, isSelected} = props;
     return (
-        <View style={styles.container}>
+        <Pressable 
+        onPress={onPress} 
+        style={[styles.container, 
+            {backgroundColor: isSelected ? "#dfdfdf" : "white"}]}
+        >
             {/* IMage */}
             <Image style={styles.image} source={require('../../assets/package.png')} />
 
@@ -23,7 +27,7 @@ const PackageTypeRow = (props) => {
             </View>
 
 
-        </View>
+        </Pressable>
     );
 };
 

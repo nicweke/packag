@@ -5,15 +5,23 @@ import typesData from '../../assets/types.js';
 import styles from './styles.js';
 
 
-const PackageTypes = (props) => {
-    const confirm = () => {
-        console.warn('confirm');
-    };
+const PackageTypes = ({ typeState, onSubmit }) => {
+
+    const [selectedType, setSelectedType] = typeState;
+
+    
+
+
     return (
         <View>
-            {typesData.map(type=> <PackageTypeRow type={type}/>)}
+            {typesData.map(type=> <PackageTypeRow 
+            type={type}
+             key={type.id}
+             isSelected={type.type === selectedType}
+             onPress={() => setSelectedType(type.type)}
+             />)}
 
-            <Pressable onPress={confirm} style={{
+            <Pressable onPress={onSubmit} style={{
                 
                 backgroundColor:'#ffd60a',
                 padding: 15,
@@ -23,7 +31,7 @@ const PackageTypes = (props) => {
                 borderRadius:5,
                 
                 }}>
-                <Text style={{color:'#000000', fontWeight:"900", fontSize: 18,}}>Confirm Package</Text>
+                <Text style={{color:'#000000', fontSize: 18, fontFamily:'Raleway-Bold'}}>Confirm Package</Text>
             </Pressable>
             
             

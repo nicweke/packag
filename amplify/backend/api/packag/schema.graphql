@@ -1,0 +1,99 @@
+# This "input" configures a global authorization rule to enable public access to
+# all models in this schema. Learn more about authorization rules here: https://docs.amplify.aws/cli/graphql/authorization-rules
+input AMPLIFY { globalAuthRule: AuthRule = { allow: public } } # FOR TESTING ONLY!
+
+type User @model {
+  id: ID! @primaryKey
+  username: String!
+  email: String!
+
+ orders: [Order] @hasMany(indexName: "byUser", fields: ["id"])
+ package: Package @hasOne(fields: ["id"])
+ home: Home @hasOne(fields: ["id"])
+ work: Work @hasOne(fields: ["id"])
+  
+}
+
+
+type Package @model {
+  id: ID! @primaryKey
+  type: String!
+  latitude: Float
+  longitude: Float
+  heading: Float
+  isActive: Boolean
+
+
+  orders: [Order] @hasMany(indexName: "byPackage", fields: ["id"])
+
+
+  userId: ID! @index(name: "byUser")
+  user: User @belongsTo(fields: ["userId"])
+
+  
+
+}
+
+
+type Home @model {
+  id: ID! @primaryKey
+  latitude: Float
+  longitude: Float
+  
+  
+  userId: ID! @index(name: "byUser")
+  user: User @belongsTo(fields: ["userId"])
+
+  
+
+  
+
+}
+
+type Work @model {
+  id: ID! @primaryKey
+  latitude: Float
+  longitude: Float
+  
+  
+
+  userId: ID! @index(name: "byUser")
+  user: User @belongsTo(fields: ["userId"])
+
+  
+
+
+}
+
+
+type Order @model 
+
+{
+  id: ID! @primaryKey
+  createdAt: String!
+  type: String!
+  originLatitude: Float!
+  originLongitude: Float!
+  destinationLatitude: Float!
+  destinationLongitude: Float!
+  status: String
+
+  userId: ID! @index(name: "byUser")
+  user: User @belongsTo(fields: ["userId"])
+  
+
+  packageId:ID! @index(name: "byPackage", sortKeyFields:["createdAt"])
+  package: Package @belongsTo(fields: ["packageId"])
+  
+  
+  
+  
+}
+
+type Subscription {
+  onOrderUpdated(id: ID!): Order @aws_subscribe(mutations: ["updateOrder"])
+  onPackageUpdated(id: ID!): Package @aws_subscribe(mutations: ["updatePackage"])
+}
+
+
+

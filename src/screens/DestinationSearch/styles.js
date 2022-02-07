@@ -10,11 +10,17 @@ const styles = StyleSheet.create({
     },
     textInput: {
 
-        backgroundColor:'#e2e2e2',
+        backgroundColor:'white',
         marginVertical: 5,
         borderRadius: 5,
         padding: 10,
         marginLeft: 15,
+        fontFamily:'Raleway-Bold',
+        color:'black',
+        borderColor: 'black',
+        borderWidth:1,
+    
+        
         
         
 
@@ -39,8 +45,10 @@ const styles = StyleSheet.create({
     row:{
         flexDirection: 'row',
         alignItems:'center',
-        marginVertical: 10,
-
+        marginVertical: 12,
+        marginHorizontal: 10,
+    
+        
     },
     iconContainer: {
         backgroundColor:'#001d3d',
@@ -50,12 +58,13 @@ const styles = StyleSheet.create({
 
     },
     locationText:{
+       
 
     },
     circle:{
         width: 8,
         height: 8,
-        backgroundColor:'#005fb8',
+        backgroundColor:'black',
         position: 'absolute',
         top: 30,
         left: 8.5,
@@ -65,7 +74,7 @@ const styles = StyleSheet.create({
     line:{
         width: 2,
         height: 59,
-        backgroundColor:'#005fb8',
+        backgroundColor:'black',
         position: 'absolute',
         top: 37,
         left: 11.5,
@@ -76,7 +85,7 @@ const styles = StyleSheet.create({
     {
         width: 12,
         height: 12,
-        backgroundColor:'#005fb8',
+        backgroundColor:'black',
         position: 'absolute',
         top: 95,
         left: 7,
