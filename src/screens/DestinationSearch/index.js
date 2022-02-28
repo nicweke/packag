@@ -1,15 +1,21 @@
 import React, {useState, useEffect} from 'react';
-import { View, TextInput, SafeAreaView, Pressable, Text, TouchableOpacity } from 'react-native';
+import {
+  View,
+  TextInput,
+  SafeAreaView,
+  Pressable,
+  Text,
+  TouchableOpacity,
+} from 'react-native';
 import {GooglePlacesAutocomplete} from 'react-native-google-places-autocomplete';
 import {useNavigation} from '@react-navigation/native';
 import {LearnMoreLinks} from 'react-native/Libraries/NewAppScreen';
 import PlaceRow from './PlaceRow.js';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import { GOOGLE_MAPS_APIKEY } from '@env';
-
-
+import {GOOGLE_MAPS_APIKEY} from '@env';
 import styles from './styles.js';
-
+import {useDispatch, useSelector} from 'react-redux';
+import {selectDestination, selectOrigin, setDestination, setOrigin} from '../../../slices/navSlice.js';
 
 const homePlace = {
   description: 'Home',
@@ -22,50 +28,78 @@ const workPlace = {
 
 const DestinationSearch = props => {
   const navigation = useNavigation();
-  const [originPlace, setOriginPlace] = useState(null);
-  const [destinationPlace, setDestinationPlace] = useState(null);
+  // const [origin, setOrigin] = useState(null);
+  // const [destination, setDestination] = useState(null);
+  // const [originPlace, setOriginPlace] = useState(null);
+  // const [destinationPlace, setDestinationPlace] = useState(null);
+
+  const origin = useSelector(selectOrigin);
+  const destination = useSelector(selectDestination);
 
   const goToHome = () => {
     navigation.navigate('Home');
   };
 
-  const checkNavigation = () => {
-    if (originPlace && destinationPlace) {
-      navigation.navigate('SearchResults', {
-        originPlace,
-        destinationPlace,
-      });
-    }
-  };
+  const dispatch = useDispatch();
 
-  useEffect(() => {
-    checkNavigation();
-  }, [originPlace, destinationPlace]);
+  // const checkNavigation = () => {
+  //   // if (originPlace && destinationPlace)
+  //   if (origin && destination) {
+  //     navigation.navigate('SearchResults', {
+  //       origin,
+  //       destination,
+  //       // originPlace,
+  //       // destinationPlace,
+  //     });
+  //   }
+  // };
+
+  // useEffect(
+  //   () => {
+  //     checkNavigation();
+  //   },
+  //   //[originPlace, destinationPlace]
+  //   [origin, destination],
+  // );
 
   return (
     <SafeAreaView>
-      <TouchableOpacity onPress={goToHome} style={{paddingTop:15, flexDirection:'row', marginHorizontal:25, marginBottom:2, alignItems:'center'}}>
-        <AntDesign name='back' color={'black'} size={25}/>
-        <Text style={{color:'black', padding:3, fontFamily:'Raleway-Bold'}}>Back</Text>
+      <TouchableOpacity
+        onPress={goToHome}
+        style={{
+          paddingTop: 15,
+          flexDirection: 'row',
+          marginHorizontal: 25,
+          marginBottom: 2,
+          alignItems: 'center',
+        }}>
+        <AntDesign name="back" color={'black'} size={25} />
+        <Text style={{color: 'black', padding: 3, fontFamily: 'Raleway-Bold'}}>
+          Back
+        </Text>
       </TouchableOpacity>
       <View style={styles.container}>
         <GooglePlacesAutocomplete
           placeholder="Package From"
           onPress={(data, details = null) => {
-            setOriginPlace({data, details}, checkNavigation);
+            // setOriginPlace({data, details}, checkNavigation);
+            dispatch(setOrigin({location: details.geometry.location, description:data.description}))
+             //navigation.navigate('SearchResults')),
+            dispatch(setDestination(null)); 
+             
           }}
+          fetchDetails={true}
           enablePoweredByContainer={false}
           suppressDefaultStyles
           currentLocation={true}
-          nearbyPlacesAPI='GooglePlacesSearch'
+          nearbyPlacesAPI="GooglePlacesSearch"
           minLength={2}
           debounce={400}
           currentLocationLabel="Current Location"
-          textInputProps={{ placeholderTextColor: 'black' }}
+          textInputProps={{placeholderTextColor: 'black'}}
           styles={{
             textInput: styles.textInput,
 
-            
             container: styles.autocompleteContainer,
             listView: styles.listView,
             separator: styles.separator,
@@ -83,37 +117,35 @@ const DestinationSearch = props => {
         <GooglePlacesAutocomplete
           placeholder="Package To"
           onPress={(data, details = null) => {
-            setDestinationPlace({data, details}, checkNavigation);
+            // setDestinationPlace({data, details}, checkNavigation);
+            dispatch(setDestination({location: details.geometry.location,description: data.description}))
+             navigation.navigate('SearchResults')
+              
           }}
           enablePoweredByContainer={false}
           minLength={2}
           debounce={400}
-          nearbyPlacesAPI='GooglePlacesSearch'
-          textInputProps={{ placeholderTextColor: 'white' }}
+          nearbyPlacesAPI="GooglePlacesSearch"
+          textInputProps={{placeholderTextColor: 'white'}}
           suppressDefaultStyles
           styles={{
             textInput: {
-
-              backgroundColor:'#2667ff',
+              backgroundColor: '#2667ff',
               marginVertical: 5,
               borderRadius: 5,
               padding: 10,
               marginLeft: 15,
-              fontFamily:'Raleway-Bold',
-              color:'white',
-              borderColor: '#2667ff'
-              
-              
-              
-      
-          },
+              fontFamily: 'Raleway-Bold',
+              color: 'white',
+              borderColor: '#2667ff',
+            },
             container: {
               ...styles.autocompleteContainer,
               top: 65,
             },
             separator: styles.separator,
           }}
-          fetchDetails
+          fetchDetails={true}
           query={{
             key: GOOGLE_MAPS_APIKEY,
             language: 'en',

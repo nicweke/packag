@@ -5,7 +5,7 @@ const styles = StyleSheet.create({
     container: {
         flexDirection: "row",
         alignItems: "center",
-        padding: 20,
+        padding: 18,
 
     },
     image: {
@@ -30,7 +30,8 @@ const styles = StyleSheet.create({
     },
     time : {
         color: '#001d3d',
-        fontFamily:'Raleway-Medium'
+        fontFamily:'Raleway-Medium',
+        fontSize:13,
 
     },
     rightContainer : {
@@ -42,7 +43,7 @@ const styles = StyleSheet.create({
     price: {
         color: '#1f1f1f',
         //fontWeight: "bold",
-        fontSize: 18,
+        fontSize: 17,
         marginLeft: 5,
         fontFamily:'Raleway-SemiBold'
 

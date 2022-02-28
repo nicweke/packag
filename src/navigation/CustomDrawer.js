@@ -12,7 +12,7 @@ import {useRoute} from '@react-navigation/native';
 import {getUser} from '../graphql/queries';
 //import {Auth,API,graphqlOperation} from 'aws-amplify';
 
-const CustomDrawer = props => {
+const CustomDrawer = (props) => {
   //const [user, setUser] = useState(null);
   //const route = useRoute();
   //fetch user details
@@ -32,19 +32,10 @@ const CustomDrawer = props => {
 
   const setUser = async () => {
     let authenticatedUser = await Auth.currentAuthenticatedUser({bypassCache:true})
-    const username = authenticatedUser.username
-    return username
-    // try {
-    //   if(username != null)
-    //   {
-    //     <Text>Paul</Text>
-    //   }
-    //   else{
-    //     return;
-    //   }
-    // } catch (e) {
-    //   console.log(e);
-    // }
+    // const username = authenticatedUser.username
+    // return username;
+     return authenticatedUser;
+ 
   };
 
   // const userInfo = async () => {
@@ -83,14 +74,10 @@ const CustomDrawer = props => {
               fontFamily: 'Raleway-Bold',
               left: 65,
               bottom: 40,
-            }}>{`${setUser()}`}</Text>
+            // }}>{`${setUser()}`}</Text>
+            }}>{setUser}</Text>
 
-          {/* <TouchableOpacity onPress={getUserName} style={{paddingVertical:15,}}>
-                    <View style={{flexDirection:'row', alignItems:'center'}}>
-                        <Ionicons name="exit-outline" size={25}  color={'#003566'}/>  
-                        <Text style={{ fontFamily:"Raleway-Bold", color: '#003566', left:8, fontSize:25,paddingBottom:5}}>{getUsername}</Text>
-                    </View>
-                </TouchableOpacity> */}
+          
         </ImageBackground>
         <View style={{flex: 1, backgroundColor: '#fff'}}>
           <DrawerItemList {...props} />

@@ -27,11 +27,11 @@ import Geolocation from '@react-native-community/geolocation';
 
 import Router from './src/navigation/root.js';
 
-import {withAuthenticator} from 'aws-amplify-react-native';
+import {withAuthenticator, AmplifyTheme} from 'aws-amplify-react-native';
 
 navigator.geolocation = require('@react-native-community/geolocation');
 
-import Toast from 'react-native-toast-message';
+
 
 import Amplify from 'aws-amplify';
 import config from './src/aws-exports';
@@ -88,9 +88,96 @@ const App: () => Node = () => {
         <Router />
         
       </>
-      <Toast />
+      
     </Provider>
   );
 };
 
-export default withAuthenticator(App);
+const customTheme = {...AmplifyTheme,
+  button:{
+    ...AmplifyTheme.button,
+    backgroundColor:'#ffd60a',
+    borderRadius:8,
+    padding: 16,
+    
+  },
+  buttonText: {
+    ...AmplifyTheme.buttonText,
+		color: '#070600',
+    fontFamily: 'Raleway-Bold',
+    fontSize: 16,
+	},
+  sectionHeaderText: {
+    ...AmplifyTheme.sectionHeaderText,
+    fontFamily: 'Raleway-Bold',
+    textAlign: 'center',	
+	},
+  input: {
+    ...AmplifyTheme.input,
+    borderStyle:'solid',
+    borderColor:'#070600',
+    borderWidth:1,
+    borderTopWidth:0,
+    borderLeftWidth:0,
+    borderRightWidth:0,
+    fontFamily: 'Raleway-Bold',
+	},
+  buttonDisabled: {
+    ...AmplifyTheme.buttonDisabled,
+    backgroundColor:'#ffc300',
+		borderRadius:8,
+    padding: 16,
+	},
+  phoneInput: {
+    ...AmplifyTheme.phoneInput,
+    //borderWidth:1,
+   // borderColor:'black',
+    //backgroundColor:'black',
+    borderTopWidth:0,
+    borderLeftWidth:0,
+    borderRightWidth:0,
+    borderBottomWidth:0,
+    fontFamily: 'Raleway-Bold',
+    color:'white',
+    fontSize: 16,	
+	},
+  phoneContainer: {
+    borderTopWidth:0,
+    borderLeftWidth:0,
+    borderRightWidth:0,
+    borderBottomWidth:0,
+		display: 'flex',
+		flexDirection: 'row',
+		alignItems: 'center',
+    backgroundColor:'#003566',
+    borderRadius: 4,
+    fontFamily: 'Raleway-Bold',
+    fontSize: 16, 
+    //borderColor:'white',
+    borderWidth:1,
+	},
+  signedOutMessage: {
+    ...AmplifyTheme.signedOutMessage,
+    fontFamily: 'Raleway-Bold',	
+	},
+  sectionFooterLink: {
+    ...AmplifyTheme.sectionFooterLink,
+    fontSize: 14,
+    fontFamily:'Raleway-Bold',
+	},
+  sectionFooterLinkDisabled: {
+    ...AmplifyTheme.sectionFooterLinkDisabled,
+    fontFamily:'Raleway-Bold', 
+		fontSize: 16,
+		
+	},
+  errorRowText: {
+		marginLeft: 10,
+    color:'black',
+    fontFamily:'Raleway-Bold', 
+	},
+  
+
+}
+
+export default withAuthenticator(App, {theme: customTheme});

@@ -7,9 +7,15 @@ import  MapView, {Marker} from 'react-native-maps';
 import MapViewDirections from 'react-native-maps-directions';
 import { useRef, useCallback } from 'react';
 import { GOOGLE_MAPS_APIKEY } from "@env";
+import { useSelector } from 'react-redux';
+import { selectDestination,selectOrigin, setOrigin } from '../../../slices/navSlice';
 
+const RouteMap = () => {
+//const RouteMap = ({origin, destination}) => {
 
-const RouteMap = ({origin, destination}) => {
+    const origin = useSelector(selectOrigin);
+    const destination = useSelector(selectDestination);
+    const mapRef = useRef(null);
 
     // const initialRegion={{
     //     latitude:origin.details.geometry.location.lat,
@@ -17,20 +23,20 @@ const RouteMap = ({origin, destination}) => {
     //     latitudeDelta: 0.0222,
     //     longitudeDelta: 0.0121,
     //     }}
-    const originLoc = {
-        latitude: origin.details.geometry.location.lat,
-        longitude: origin.details.geometry.location.lng,
-    };
+    // const originLoc = {
+    //     latitude: origin.details.geometry.location.lat,
+    //     longitude: origin.details.geometry.location.lng,
+    // };
 
-    const destinationLoc = {
-        latitude: destination.details.geometry.location.lat, 
-        longitude: destination.details.geometry.location.lng,
-    };
+    // const destinationLoc = {
+    //     latitude: destination.details.geometry.location.lat, 
+    //     longitude: destination.details.geometry.location.lng,
+    // };
 
     
 
 
-    const mapRef = useRef(null);
+    
 
     useEffect(() => {
       if(!origin || !destination) return;
@@ -47,12 +53,13 @@ const RouteMap = ({origin, destination}) => {
     
         <MapView
             ref={mapRef}
-            //ref={ref}
             style={{height:'100%', width:'100%'}}
             showsUserLocation={true}
             initialRegion={{
-                latitude:origin.details.geometry.location.lat,
-                longitude:origin.details.geometry.location.lng,
+                // latitude:origin.details.geometry.location.lat,
+                // longitude:origin.details.geometry.location.lng,
+                latitude:origin.location.lat,
+                longitude:origin.location.lng,
                 latitudeDelta: 0.0222,
                 longitudeDelta: 0.0121,
                 }}
@@ -61,29 +68,50 @@ const RouteMap = ({origin, destination}) => {
             
           
         >
+
+            {origin && destination && (
             <MapViewDirections
-                origin={originLoc}
-                destination={destinationLoc}
+                // origin={originLoc}
+                // destination={destinationLoc}
+                origin={origin.description}
+                destination={destination.description}
                 apikey={GOOGLE_MAPS_APIKEY}
                 strokeWidth={3}
                 strokeColor="black"
             />  
-            <Marker
-            
-            coordinate={originLoc}
-            title={"Origin"}
-            identifier='origin'
-        
-            />
-            <Marker
-            
-            coordinate={destinationLoc}
-            title={"Destination"}
-            identifier='destination'
+            )}
 
-        
+            {origin?.location && (
+                 <Marker
+            
+                 //coordinate={originLoc}
+                 coordinate={{
+                    latitude:origin.location.lat,
+                    longitude:origin.location.lng,
+                 }}
+                 title={"Origin"}
+                 description={origin.description}
+                 identifier='origin'
+             
+                 />
+
+            )}
+           
+           {origin?.location && (
+            <Marker
+            
+            //coordinate={destinationLoc}
+            coordinate={{
+                latitude:destination.location.lat,
+                longitude:destination.location.lng,
+             }}
+             title={"Destination"}
+             description={destination.description}
+            identifier='destination'
         
             />
+
+           )}
 
         </MapView>
        
@@ -102,6 +130,8 @@ export default RouteMap;
 // import React, { useRef, useCallback } from 'react';
 // import { Platform } from 'react-native';
 // import MapView, { PROVIDER_GOOGLE, LatLng, Marker } from 'react-native-maps';
+// import { useSelector } from 'react-redux';
+// import { selectDestination, selectOrigin } from '../../../slices/navSlice';
 
 // type Props = {
 //   origin: LatLng;
